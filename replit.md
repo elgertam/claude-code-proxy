@@ -8,6 +8,16 @@ This repository contains a proxy server that allows Anthropic clients (like Clau
 
 Preferred communication style: Simple, everyday language.
 
+## Recent Changes
+
+- **2025-01-09**: Added comprehensive Azure OpenAI integration
+  - Enhanced ModelMapper with Azure provider support
+  - Added Azure API key, endpoint, and version configuration
+  - Updated model mapping logic to handle Azure deployments
+  - Added Azure support to both /v1/messages and /v1/messages/count_tokens endpoints
+  - Updated environment configuration and documentation
+  - Created comprehensive README with Azure setup guide
+
 ## System Architecture
 
 ### Core Architecture
