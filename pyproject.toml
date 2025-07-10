@@ -24,6 +24,7 @@ include = ["providers*"]
 [tool.setuptools]
 py-modules = ["server"]
 
-[project.scripts]
-anthropic-proxy = "server:main"
+# Optional CLI entry point (can be used with: python -m anthropic-proxy)
+# [project.scripts]
+# anthropic-proxy = "server:main"
 
