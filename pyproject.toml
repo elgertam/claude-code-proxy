@@ -1,7 +1,7 @@
 [project]
 name = "anthropic-proxy"
-version = "0.1.0"
-description = "Proxy that translates between Anthropic API and LiteLLM"
+version = "2.0.0"
+description = "Proxy that translates between Anthropic API and LiteLLM with modular provider support"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
@@ -12,4 +12,18 @@ dependencies = [
     "litellm>=1.40.14",
     "python-dotenv>=1.0.0",
 ]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["providers*"]
+
+[tool.setuptools]
+py-modules = ["server"]
+
+[project.scripts]
+anthropic-proxy = "server:main"
 

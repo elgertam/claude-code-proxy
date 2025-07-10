@@ -15,6 +15,15 @@ import re
 from datetime import datetime
 import sys
 
+# Import the modular provider system
+try:
+    from providers.registry import registry
+except ImportError:
+    # If running from the project directory
+    import sys
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from providers.registry import registry
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -1447,9 +1456,10 @@ async def count_tokens(
 @app.get("/")
 async def root():
     return {
-        "message": "Anthropic Proxy for LiteLLM with Azure OpenAI Support", 
-        "version": "1.1.0",
-        "supported_providers": ["openai", "gemini", "azure", "anthropic"],
+        "message": "Anthropic Proxy for LiteLLM with Modular Provider Support", 
+        "version": "2.0.0",
+        "supported_providers": registry.get_provider_names(),
+        "available_providers": registry.get_available_provider_names(),
         "preferred_provider": PREFERRED_PROVIDER,
         "endpoints": {
             "messages": "/v1/messages",
@@ -1510,3 +1520,18 @@ if __name__ == "__main__":
     
     # Configure uvicorn to run with minimal logs
     uvicorn.run(app, host="0.0.0.0", port=8082, log_level="error")
+
+
+def main():
+    """Main entry point for the CLI script."""
+    import uvicorn
+    uvicorn.run(
+        "server:app",
+        host="0.0.0.0",
+        port=5000,
+        reload=True
+    )
+
+
+if __name__ == "__main__":
+    main()
